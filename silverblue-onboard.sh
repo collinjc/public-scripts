@@ -5,13 +5,13 @@
 #
 # Copyright 2023 J. Cody Collins
 #
-# Last Modified:Fri 2023-03-31 13:49:53 (-0400)
+# Last Modified:Fri 2023-03-31 14:28:32 (-0400)
 #
 # =============================================================================
 
 DEFAULT_OS="Windows Boot Manager (on /dev/nvme0n1p1)"
 FLATPAK_PACKAGES=(
-    fedora org.libreofficeLibreOffice
+    fedora org.libreoffice.LibreOffice
     flathub in.srev.guiscrcpy
     flathub com.google.Chrome
     flathub org.vim.Vim
