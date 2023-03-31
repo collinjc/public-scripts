@@ -5,7 +5,7 @@
 #
 # Copyright 2023 J. Cody Collins
 #
-# Last Modified:Fri 2023-03-31 14:48:59 (-0400)
+# Last Modified:Fri 2023-03-31 16:40:13 (-0400)
 #
 # =============================================================================
 
@@ -33,7 +33,7 @@ function set_grub_default {
     echo -n "Set Windows as default OS? (y/n): "
     read set_grub_default
     if [ "${set_grub_default}" == "y" ]; then
-        grub2-set-default "${DEFAULT_OS}"
+        sudo grub2-set-default "${DEFAULT_OS}"
     fi
 }
 
@@ -69,7 +69,7 @@ function install_flatpak_packages {
 }
 
 function configure_aliases {
-    sudo echo "alias vim='flatpak run org.vim.Vim'" > /etc/profile.d/flatpak_aliases.sh
+    echo "alias vim='flatpak run org.vim.Vim'" | sudo tee /etc/profile.d/flatpak_aliases.sh
 }
 
 main
