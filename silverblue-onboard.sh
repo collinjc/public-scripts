@@ -5,16 +5,16 @@
 #
 # Copyright 2023 J. Cody Collins
 #
-# Last Modified:Fri 2023-03-31 14:28:32 (-0400)
+# Last Modified:Fri 2023-03-31 14:44:23 (-0400)
 #
 # =============================================================================
 
 DEFAULT_OS="Windows Boot Manager (on /dev/nvme0n1p1)"
 FLATPAK_PACKAGES=(
-    fedora org.libreoffice.LibreOffice
-    flathub in.srev.guiscrcpy
-    flathub com.google.Chrome
-    flathub org.vim.Vim
+    org.libreoffice.LibreOffice
+    in.srev.guiscrcpy
+    com.google.Chrome
+    org.vim.Vim
 )
 RPM_OSTREE_PACKAGES=(
     gnome-kiosk
@@ -23,7 +23,6 @@ RPM_OSTREE_PACKAGES=(
 )
 
 function main {
-    checkroot
     set_grub_default
     update_os
     install_rpm_ostree_packages
@@ -39,8 +38,8 @@ function set_grub_default {
 }
 
 function update_os {
-    rpm-ostree cancel
-    rpm-ostree upgrade
+    sudo rpm-ostree cancel
+    sudo rpm-ostree upgrade
     flatpak update
     flatpak uninstall --unused -y
 }
@@ -50,7 +49,7 @@ function install_rpm_ostree_packages {
     echo ${RPM_OSTREE_PACKAGES[@]}
     read install_rpm_ostree_packages
     if [ "${install_rpm_ostree_packages}" == "y" ]; then
-        rpm-ostree install ${RPM_OSTREE_PACKAGES[@]}
+        sudo rpm-ostree install ${RPM_OSTREE_PACKAGES[@]}
     fi
 }
 
@@ -68,14 +67,7 @@ function install_flatpak_packages {
 }
 
 function configure_aliases {
-    echo "alias vim='flatpak run org.vim.Vim'" > /etc/profile.d/flatpak_aliases.sh
-}
-
-function checkroot {
-    if [[ $(id -u) -ne 0 ]]; then
-        echo "Please run as root."
-        exit 1
-    fi
+    sudo echo "alias vim='flatpak run org.vim.Vim'" > /etc/profile.d/flatpak_aliases.sh
 }
 
 main
