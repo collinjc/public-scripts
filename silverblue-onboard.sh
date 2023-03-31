@@ -5,7 +5,7 @@
 #
 # Copyright 2023 J. Cody Collins
 #
-# Last Modified:Fri 2023-03-31 14:44:23 (-0400)
+# Last Modified:Fri 2023-03-31 14:48:59 (-0400)
 #
 # =============================================================================
 
@@ -45,8 +45,9 @@ function update_os {
 }
 
 function install_rpm_ostree_packages {
-    echo "Install the following packages? (y/n)"
+    echo "The following packages will be installed:"
     echo ${RPM_OSTREE_PACKAGES[@]}
+    echo -n "Continue? (y/n): "
     read install_rpm_ostree_packages
     if [ "${install_rpm_ostree_packages}" == "y" ]; then
         sudo rpm-ostree install ${RPM_OSTREE_PACKAGES[@]}
@@ -54,8 +55,9 @@ function install_rpm_ostree_packages {
 }
 
 function install_flatpak_packages {
-    echo "Install the following packages (y/n)"
+    echo "The following packages will be installed:"
     echo ${FLATPAK_PACKAGES[@]}
+    echo -n "Continue? (y/n): "
     read install_flatpak_packages
     if [ "${install_flatpak_packages}" == "y" ]; then
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
