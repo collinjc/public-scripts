@@ -5,7 +5,7 @@
 #
 # Copyright 2023 J. Cody Collins
 #
-# Last Modified:Fri 2023-03-31 13:42:30 (-0400)
+# Last Modified:Fri 2023-03-31 13:49:53 (-0400)
 #
 # =============================================================================
 
@@ -63,7 +63,12 @@ function install_flatpak_packages {
         for package in "${FLATPAK_PACKAGES[@]}"; do
             flatpak install "$package"
         done
+        configure_aliases
     fi
+}
+
+function configure_aliases {
+    echo "alias vim='flatpak run org.vim.Vim'" > /etc/profile.d/flatpak_aliases.sh
 }
 
 function checkroot {
